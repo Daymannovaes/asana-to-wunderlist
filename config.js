@@ -1,6 +1,6 @@
 const configFile = require('./config.json');
 const config = {};
 
-Object.keys(configFile).map(key => config = process.env[key] || configFile);
+Object.keys(configFile).map(key => config[key] = process.env[key] || configFile[key]);
 
-return config;
+module.exports = config;
