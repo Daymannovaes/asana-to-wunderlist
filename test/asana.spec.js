@@ -13,5 +13,14 @@ describe('asana.js', function() {
             });
         });
     });
+
+    describe('workspace', function() {
+        it('shoult get all workspaces properly', function() {
+            return asana.findWorkspaceByName('bussola').then(workspace => {
+                expect(workspace).to.have.property('name');
+                expect(workspace.name.toLowerCase()).to.match(/bussola/i);
+            });
+        });
+    });
 });
 
