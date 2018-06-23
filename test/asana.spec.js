@@ -15,10 +15,19 @@ describe('asana.js', function() {
     });
 
     describe('workspace', function() {
-        it('shoult get all workspaces properly', function() {
+        it('shoult find workspace properly', function() {
             return asana.findWorkspaceByName('bussola').then(workspace => {
                 expect(workspace).to.have.property('name');
                 expect(workspace.name.toLowerCase()).to.match(/bussola/i);
+            });
+        });
+    });
+
+    describe('projects', function() {
+        it('shoult find project by name', function() {
+            return asana.findprojectByName('rosacruz').then(project => {
+                expect(project).to.have.property('name');
+                expect(project.name.toLowerCase()).to.match(/rosacruz/i);
             });
         });
     });
