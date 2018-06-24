@@ -1,4 +1,4 @@
-const { expect } = require('chai');
+const should = require('chai').should();
 const asana = require('../lib/asana');
 
 describe('asana.js', function() {
@@ -7,9 +7,10 @@ describe('asana.js', function() {
     describe('#getMe', function() {
         it('should work properly', function() {
             return asana.getMe().then(user => {
-                expect(user).to.be.an('object');
-                expect(user).to.have.property('id');
-                expect(user).to.have.property('email');
+                user.should.be.an('object');
+                user.should.be.an('object');
+                user.should.have.property('id');
+                user.should.have.property('email');
             });
         });
     });
@@ -17,8 +18,8 @@ describe('asana.js', function() {
     describe('workspace', function() {
         it('shoult find workspace properly', function() {
             return asana.findWorkspaceByName('bussola').then(workspace => {
-                expect(workspace).to.have.property('name');
-                expect(workspace.name.toLowerCase()).to.match(/bussola/i);
+                workspace.should.have.property('name');
+                workspace.name.toLowerCase().should.match(/bussola/i);
             });
         });
     });
@@ -26,16 +27,27 @@ describe('asana.js', function() {
     describe('projects', function() {
         it('shoult find all projects', function() {
             return asana.findAllProjects().then(projects => {
-                expect(projects).to.be.an('array');
-                expect(projects.length).to.be.at.least(1);
-                expect(projects[0]).to.have.property('name');
+                projects.should.be.an('array');
+                projects.length.should.be.at.least(1);
+                projects[0].should.have.property('name');
             });
         });
 
         it('shoult find project by name', function() {
             return asana.findprojectByName('rosacruz').then(project => {
-                expect(project).to.have.property('name');
-                expect(project.name.toLowerCase()).to.match(/rosacruz/i);
+                project.should.have.property('name');
+                project.name.toLowerCase().should.match(/rosacruz/i);
+            });
+        });
+
+        it('should get all active projects', function() {
+            return asana.findActiveProjects().then(projects => {
+                projects.should.be.an('array');
+                projects.length.should.be.at.least(1);
+                projects[0].should.have.property('archived');
+                projects.forEach(project => {
+                    project.should.have.property('archived', false);
+                });
             });
         });
     });
