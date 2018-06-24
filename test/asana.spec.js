@@ -24,6 +24,14 @@ describe('asana.js', function() {
     });
 
     describe('projects', function() {
+        it('shoult find all projects', function() {
+            return asana.findAllProjects().then(projects => {
+                expect(projects).to.be.an('array');
+                expect(projects.length).to.be.at.least(1);
+                expect(projects[0]).to.have.property('name');
+            });
+        });
+
         it('shoult find project by name', function() {
             return asana.findprojectByName('rosacruz').then(project => {
                 expect(project).to.have.property('name');
